@@ -55,6 +55,29 @@ const Model = db.define('model', {
     }
 })
 
+Company.generateRandom = function() {
+    return this.create({name: faker.company.companyName()})
+    // try{
+    //     let i = 0
+    //     while(i < num) {
+    
+    //         await Company.create({
+    //             name: faker.company.companyName()
+    //             //address: faker.address.streetAddress(),
+    //             //about: faker.lorem.sentences()
+    //         })
+    
+    //         i++
+    
+    //     }
+
+    // }
+
+    // catch(ex) {
+    //     console.log(ex)
+    // }
+}
+
 
 Model.belongsTo(Company)
 Company.hasMany(Model)

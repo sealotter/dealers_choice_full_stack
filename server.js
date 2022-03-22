@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const {db,syncAndSeed, models: {Company, Model}} = require('./db')
 
+app.use(express.json())
+
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 
@@ -19,10 +21,45 @@ app.get('/api/companies', async(req,res,next) => {
 app.get('/api/companies/:id', async(req, res, next) => {
     try{
         
+        
     }catch(ex){
         next(ex)
     }
 })
+
+app.delete('/api/companies/:id', async(req, res, next) => {
+    try{
+        const company = await Company.findByPk(req.params.id)
+        await company.destroy()
+        res.sendStatus(204)
+
+    }catch(ex){
+        next(ex)
+    }
+})
+
+app.put('/api/companies/:id', async(req, res, next) => {
+    try{
+        const company = await Company.findByPk(req.params.id)
+        await company.update({name: req.body.name})
+        res.send(company)
+
+    }catch(ex){
+        next(ex)
+    }
+})
+
+app.post('/api/companies', async(req, res, next) =>{
+    try{
+        const company = await Company.generateRandom()
+        res.status(201).send(company)
+
+    }catch(ex) {
+        next(ex)
+    }
+})
+
+
 
 
 
