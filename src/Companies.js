@@ -1,6 +1,8 @@
 import React from "react";
 import { deleteCompany } from "./store";
 import { connect } from "react-redux";
+import Models from "./Models";
+import { Link } from "react-router-dom";
 
 
 const Companies = ({ companies, destroy }) => {
@@ -9,8 +11,11 @@ const Companies = ({ companies, destroy }) => {
             <ul>
                 {companies.map(company => {
                 return (
-                    <li key= {company.id}>{ company.name }
+                    <li key= {company.id}>
+                        <Link to = {`/companies/${company.id}`} >{ company.name }</Link>
                     <button onClick={() => destroy(company)}>x</button>
+
+                   
                     
                     </li>
                 )
@@ -34,6 +39,8 @@ const mapDispatch = function(dispatch) {
 
     }
 }
+
+
 
 
 export default connect(mapStateToProps, mapDispatch)(Companies)

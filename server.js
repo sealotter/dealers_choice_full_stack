@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const {db,syncAndSeed, models: {Company, Model}} = require('./db')
+const {db,syncAndSeed, models: {Company, Model}} = require('./db');
 
 app.use(express.json())
 
@@ -11,6 +11,7 @@ app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/api/companies', async(req,res,next) => {
     try{
         const companies = await Company.findAll()
+       // const models = await Model.findAll()
         res.send(companies)
 
     }catch(ex){
@@ -18,14 +19,15 @@ app.get('/api/companies', async(req,res,next) => {
     }
 })
 
-app.get('/api/companies/:id', async(req, res, next) => {
-    try{
+
+// app.get('/api/companies/:id', async(req, res, next) => {
+//     try{
+
         
-        
-    }catch(ex){
-        next(ex)
-    }
-})
+//     }catch(ex){
+//         next(ex)
+//     }
+// })
 
 app.delete('/api/companies/:id', async(req, res, next) => {
     try{
