@@ -11,23 +11,12 @@ app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/api/companies', async(req,res,next) => {
     try{
         const companies = await Company.findAll()
-       // const models = await Model.findAll()
         res.send(companies)
 
     }catch(ex){
         next(ex)
     }
 })
-
-
-// app.get('/api/companies/:id', async(req, res, next) => {
-//     try{
-
-        
-//     }catch(ex){
-//         next(ex)
-//     }
-// })
 
 app.delete('/api/companies/:id', async(req, res, next) => {
     try{
@@ -40,20 +29,12 @@ app.delete('/api/companies/:id', async(req, res, next) => {
     }
 })
 
-app.put('/api/companies/:id', async(req, res, next) => {
-    try{
-        const company = await Company.findByPk(req.params.id)
-        await company.update({name: req.body.name})
-        res.send(company)
-
-    }catch(ex){
-        next(ex)
-    }
-})
 
 app.post('/api/companies', async(req, res, next) =>{
     try{
-        const company = await Company.generateRandom()
+        const company = await Company.create(req.body)
+       // const randomInfo = await Company.generateRandom()
+
         res.status(201).send(company)
 
     }catch(ex) {
@@ -63,11 +44,8 @@ app.post('/api/companies', async(req, res, next) =>{
 
 
 
-
-
 const init = async() => {
     try{
-        await db.authenticate()
         await syncAndSeed()
         const port = process.env.PORT || 3000;
         app.listen(port, ()=> console.log(`listening on port ${port}`));

@@ -10,23 +10,18 @@ import {HashRouter, Route} from 'react-router-dom'
 
 class App extends React.Component {
     async componentDidMount(){
-        //this.props.setCompanies()
         store.dispatch(setCompanies())  
     }
+
     render(){
         return(
             <div>
                 <Header />
-
                 <Route exact path = "/companies" component = {Companies} />   
-                <Route path = "/companies/:id"   component = {Company} />
-                    
-                
+                <Route path = "/companies/:id"   component = {Company} />                            
             </div>
         )
     }
-
-    
     
 }
 

@@ -4,12 +4,6 @@ const {STRING, UUIDV4, UUID, TEXT} = Sequelize
 const faker = require('faker')
 
 
-
-//const randomNum = (min, max) => Math.floor(Math.random() * (max-min + 1)) + min
-
-
-
-
 const Company = db.define('company', {
     id: {
         type: UUID,
@@ -31,56 +25,37 @@ const Company = db.define('company', {
 
 })
 
-const Model = db.define('model', {
-    id : {
-        type: UUID,
-        defaultValue: UUIDV4,
-        primaryKey: true
+// const Model = db.define('model', {
+//     id : {
+//         type: UUID,
+//         defaultValue: UUIDV4,
+//         primaryKey: true
 
-    },
-    name: {
-        type: STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    },
+//     },
+//     name: {
+//         type: STRING,
+//         allowNull: false,
+//         validate: {
+//             notEmpty: true
+//         }
+//     },
 
-    fuel : {
-        type : STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    }
-})
+//     fuel : {
+//         type : STRING,
+//         allowNull: false,
+//         validate: {
+//             notEmpty: true
+//         }
+//     }
+// })
 
 Company.generateRandom = function() {
-    return this.create({name: faker.company.companyName()})
-    // try{
-    //     let i = 0
-    //     while(i < num) {
-    
-    //         await Company.create({
-    //             name: faker.company.companyName()
-    //             //address: faker.address.streetAddress(),
-    //             //about: faker.lorem.sentences()
-    //         })
-    
-    //         i++
-    
-    //     }
-
-    // }
-
-    // catch(ex) {
-    //     console.log(ex)
-    // }
+    return this.create({about: faker.lorem.sentences()})
 }
 
 
-Model.belongsTo(Company)
-Company.hasMany(Model)
+// Model.belongsTo(Company)
+// Company.hasMany(Model)
 
 
 const syncAndSeed = async() => {
@@ -136,8 +111,7 @@ const syncAndSeed = async() => {
 module.exports = {
     syncAndSeed,
     models : {
-        Company,
-        Model
+        Company    
     },
     db
    

@@ -5,34 +5,23 @@ import { Link } from "react-router-dom";
 
 
 const Company = ({ companies, match }) => {
-
-
-        return (
-            <div>
-                <h2>About:</h2>
-                <Link to= {'/companies'} >Back</Link>
-
-                <ul>
-                    {
-                    companies.filter(company => company.id === match.params.id).map(company => {
-                        
+    return (
+        <div>
+            <h2>About:</h2>
+            <Link to= {'/companies'} >Back</Link>
+            <ul>
+                {companies.filter(company => company.id === match.params.id).map(company => {
                     return (
-                        <li key= {company.id}>
-                           
+                    <li key= { company.id }>
                             { company.name }
-
-                           <p> {company.about}</p>
-                        
-                        </li>
+                        <p> { company.about }</p> 
+                    </li>
                     )
-                    }
-                )
                 }
-                </ul>
-        </div>
-
-        )
-    
+            )}
+         </ul>
+    </div>
+    )
 }
 
 const mapStateToProps = function(state) {
